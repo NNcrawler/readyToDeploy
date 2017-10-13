@@ -1,0 +1,16 @@
+<%- include('../partials/header',{})%>
+<%- include('../partials/menu2',{session:session})%>
+<a href="/"><img src="/asset/logo.jpg" alt=""></a>
+<br><br>
+<h1>Add New Issue</h1>
+<form class="" action="/issue/add" method="post">
+  title :
+  <input type="text" name="title" value=""><br>
+  description :<br>
+  <input type="text" name="description" value="" style="width:1000px; height:400px">
+
+  <input type="submit" name="" value="submit">
+</form>
+
+
+<%-include ../partials/footer%>

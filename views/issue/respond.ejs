@@ -1,0 +1,108 @@
+<%-include ../partials/header%>
+<%-include ../partials/menu2%>
+
+<a href="/"><img src="/asset/logo.jpg" alt=""></a>
+<br><br>
+	<ul class="list-group-item">
+	 	<li class="list-group-item">
+		  	<small><%=result_issue.createdAt.toString().substring(0,15)%></small>
+		  	<h4><%=result_issue.title%></h4>
+			<br>
+			<%=result_issue.detail%>
+			<br>
+			<br>
+			  <%if(session.userId != null){%>
+			<a <%-include ../issue/modalCommand%>
+			<div class="form-group">
+
+				<form method="post" action="/issue/respond/<%=result_issue.id%>">
+					<label class="form-control-label" for="formGroupExampleInput">Your Comment</label>
+					<input type="hidden" value="result_issue.id" name="IssueId">
+				    <input type="hidden" value="result_issue.id" name="userId">
+				    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input" name="respond">
+				  </div>
+
+				  <button type="submit" class="btn btn-primary pull-right">Submit</button>
+
+				</form>
+
+			</div></a>
+			<div>
+
+				<a class="btn btn-sm <%if(voteIssue.length>0){if(voteIssue[0].isVoteUp==true){%>btn-primary<%}else{%>btn-default<%}}%>" href="/issue/<%=result_issue.id%>/up" role="button" ><span class="glyphicon glyphicon-thumbs-up"></span> Like</a>
+				<a class="btn btn-sm <%if(voteIssue.length>0){if(voteIssue[0].isVoteUp==false){%>btn-primary<%}else{%>btn-default<%}}%>" href="/issue/<%=result_issue.id%>/down" role="button"><span class="glyphicon glyphicon-thumbs-down"></span> Unlike</a>
+			</div>
+			<%}else{%>
+				<div class="pull-right">
+					<a href="/login">LOGIN UNTUK VOTE DAN MENYAMPAIKAN PENDAPAT</a>
+				</div>
+			<%}%>
+			<br>
+
+
+		</li>
+	</ul>
+	<br>
+
+		<%result_respond.forEach(respond=>{%>
+
+
+			<div class="commentText">
+			    <div class="row">
+			        <div class="col-sm-8">
+			            <div class="panel panel-white post panel-shadow">
+			                <div class="post-heading">
+			                    <div class="pull-left image">
+			                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+			                    </div>
+			                    <div class="pull-left meta">
+			                        <div class="title h5">
+			                           <b><%=respond.User.username%></b>
+			                            made a post.
+			                        </div>
+			                        <h6 class="text-muted time"><%=respond.createdAt.toString().substring(0,15)%></h6>
+			                    </div>
+
+			                </div>
+			                <div class="post-description">
+
+			                    <p><%=respond.respond%></p>
+			                    <div class="stats">
+														<div class="row">
+															<%if(session.userId != null){%>
+															<div class="col-lg-1">
+																<a href="/issue/respond/<%=result_issue.id%>/<%=respond.id%>/up" class="btn btn-default stat-item">
+				                            <i class="fa fa-thumbs-up icon"></i>
+				                        </a>
+															</div>
+															<div class="col-lg-1">
+																<a href="/issue/respond/<%=result_issue.id%>/<%=respond.id%>/down" class="btn btn-default stat-item">
+				                            <i class="fa fa-thumbs-down icon"></i>
+				                        </a>
+															</div>
+															<%}%>
+															<div class="col-lg-1">
+																<%if(respond.vote>10){%>
+																	<span class="glyphicon glyphicon-chevron-up"></span>
+																<%}else if(respond.vote<0){%>
+																	<span class="glyphicon glyphicon-chevron-down"></span>
+																<%}else{%>
+																	<span class="glyphicon glyphicon-unchecked"></span>
+																<%}%>
+																<%=respond.vote%>
+															</div>
+														</div>
+
+
+
+
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+
+		<%})%>
+	</ul>
+<%-include ../partials/footer%>

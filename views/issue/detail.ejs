@@ -1,0 +1,13 @@
+<%-include ../partials/header%>
+
+	<ul class="list-group-item">
+	  <li class="list-group-item"><%=dataIssue.detail%> <a class="btn btn-outline-secondary" href="/issue/respond/<%=dataIssue.id%>" role="button">Command here</a></li>
+	  <%result_respond.forEach(respond=>{%>
+	  <li><%respond.respond%></li>
+	  <%})%>
+	</ul>
+
+
+
+
+<%-include ../partials/footer%>

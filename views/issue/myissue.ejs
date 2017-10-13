@@ -1,0 +1,38 @@
+
+<%-include ../partials/header%>
+<%- include('../partials/menu2',{session})%>
+
+<a href="/"><img src="/asset/logo.jpg" alt=""></a>
+<br><br><br>
+<h1>My Issue</h1>
+<% issues.forEach(issue=>{%>
+
+	<ul class="list-group-item">
+	  <li class="list-group-item">
+			<div class="row">
+				<div class="col-lg-8">
+					<%=issue.title%>
+				</div>
+				<div class="col-lg-1">
+					<a href="/issue/<%=issue.id%>/delete">delete</a>
+				</div>
+				<div class="col-lg-offset-9">
+					||||||||Status: <%if(issue.isActive){%>active<%}else{%>not active<%}%>||||||||
+					<%if(issue.isActive){%>
+					<a href="/issue/<%=issue.id%>/deactivate">Deactivate</a>
+					<%}else{%>
+					<a href="/issue/<%=issue.id%>/activate">Activate</a>
+					<%}%>
+					<a class="btn btn-outline-secondary" href="/issue/respond/<%=issue.id%>" role="button">Respond Here</a>
+					Citizen score : <%=issue.vote%> <%if(issue.vote>0){%><span class="glyphicon glyphicon-chevron-up"></span>
+					<%}else if(issue.vote<0){%>
+						<span class="glyphicon glyphicon-chevron-down"></span>
+					<%}%>
+				</div>
+			</div>
+		</li>
+	</ul>
+	<%})%>
+
+
+<%-include ../partials/footer%>
